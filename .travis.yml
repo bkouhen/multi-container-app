@@ -1,0 +1,36 @@
+language: generic
+
+services:
+  - docker
+
+# before_install:
+#   - docker image build -t bkouhen/multi-container-client-test -f ./client/Dockerfile.dev ./client
+
+# script:
+#   - docker run bkouhen/multi-container-client-test npm run test:ci
+#   - docker run bkouhen/multi-container-client-test npm run e2e:ci
+
+# after_success:
+script:
+  - docker image build -t bkouhen/multi-container-client ./client
+  - docker image build -t bkouhen/multi-container-server ./server
+  - docker image build -t bkouhen/multi-container-worker ./worker
+  - docker image build -t bkouhen/multi-container-nginx ./nginx
+  - echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push bkouhen/multi-container-client
+  - docker push bkouhen/multi-container-server
+  - docker push bkouhen/multi-container-worker
+  - docker push bkouhen/multi-container-nginx
+
+# deploy:
+#   provider: elasticbeanstalk
+#   region: "eu-west-3"
+#   app: "docker-angular"
+#   env: "DockerAngular-env"
+#   bucket_name: "elasticbeanstalk-eu-west-3-804229121763"
+#   bucket_path: "docker-angular"
+#   on:
+#     branch: master
+#   access_key_id: $AWS_ACCESS_KEY_ID
+#   secret_access_key: $AWS_SECRET_ACCESS_KEY
+
