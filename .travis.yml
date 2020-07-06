@@ -22,15 +22,15 @@ script:
   - docker push bkouhen/multi-container-worker
   - docker push bkouhen/multi-container-nginx
 
-# deploy:
-#   provider: elasticbeanstalk
-#   region: "eu-west-3"
-#   app: "docker-angular"
-#   env: "DockerAngular-env"
-#   bucket_name: "elasticbeanstalk-eu-west-3-804229121763"
-#   bucket_path: "docker-angular"
-#   on:
-#     branch: master
-#   access_key_id: $AWS_ACCESS_KEY_ID
-#   secret_access_key: $AWS_SECRET_ACCESS_KEY
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-west-3"
+  app: "multi-container-app"
+  env: "MultiContainerApp-env"
+  bucket_name: "elasticbeanstalk-eu-west-3-804229121763"
+  bucket_path: "multi-container-app"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
 
