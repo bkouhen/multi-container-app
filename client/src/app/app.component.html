@@ -1,0 +1,16 @@
+<div>
+  <form (submit)="onSubmit(index.value)">
+    <label>Enter your index:</label>
+    <input type="number" value="index" name="index" #index (onChange)="changeIndex($event.target.value)">
+    <button type="submit">Submit</button>
+  </form>
+
+  <h3>Indexes I have seen:</h3>
+  {{ returnIndexes()}}
+
+  <h3>Calculated Values:</h3>
+  <p *ngFor="let object of returnValues()">
+    For index {{object.key}} I calculated {{object.value}}
+  </p>
+
+</div>
